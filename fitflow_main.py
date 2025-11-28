@@ -289,23 +289,45 @@ if query:
 
 # ------------------ EXPORT PDF ------------------
 st.sidebar.header("📄 Export Plans")
+def clean_text(text):
+    if not text:
+        return ""
+    replacements = {
+        "🏋️‍♂️": "[Workout]",
+        "🍽️": "[Diet]",
+        "–": "-",   # en dash
+        "—": "-",   # em dash
+        "“": '"',
+        "”": '"',
+        "‘": "'",
+        "’": "'",
+        "•": "-",
+        "…": "...",
+    }
+    for bad, good in replacements.items():
+        text = text.replace(bad, good)
+    return text
+
 if st.sidebar.button("Download Plans as PDF"):
     pdf = FPDF()
     pdf.add_page()
+    
     pdf.set_font("Arial", "B", 16)
     pdf.cell(0, 10, f"Workout & Diet Plans - {profile.get('name', '')}", ln=True)
 
+    # Body
     pdf.set_font("Arial", size=12)
     pdf.ln(5)
-    pdf.multi_cell(0, 10, "Workout Plan:\n" + st.session_state.get("workout_plan", ""))
+    pdf.multi_cell(0, 10, clean_text("Workout Plan:\n" + st.session_state.get("workout_plan", "")))
     pdf.ln(5)
-    pdf.multi_cell(0, 10, "Diet Plan:\n" + st.session_state.get("diet_plan", ""))
+    pdf.multi_cell(0, 10, clean_text("Diet Plan:\n" + st.session_state.get("diet_plan", "")))
 
-    pdf_bytes = pdf.output(dest='S').encode("latin-1" , "ignore")  
+    # Output PDF
+    pdf_bytes = pdf.output(dest='S').encode('latin-1')
     st.sidebar.download_button(
         label="📄 Download Plans as PDF",
         data=pdf_bytes,
         file_name="plans.pdf",
         mime="application/pdf"
-
     )
+
