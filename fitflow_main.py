@@ -150,22 +150,13 @@ def analyze_bmi(bmi: str) -> str:
         return "You are in the obesity range. Prioritize walking + low-impact workouts."
 
 
-# WATER INTAKE TOOL
-@tool
-def water_intake(weight: float) -> str:
-    """Calculate recommended daily water intake based on body weight."""
-    liters = round(weight * 0.033, 2)
-    return f"Recommended water intake: {liters} liters/day."
-
-
 # ------------------ NEW AGENT  ------------------
 from langchain.agents import Tool, initialize_agent
 from langchain.agents import AgentType
 
 tools = [
     tavily_search,
-    analyze_bmi,           
-    water_intake,          
+    analyze_bmi,                    
     motivation_quote,
     general_tool    
 ]
@@ -330,4 +321,5 @@ if st.sidebar.button("Download Plans as PDF"):
         file_name="plans.pdf",
         mime="application/pdf"
     )
+
 
