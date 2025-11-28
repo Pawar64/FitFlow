@@ -13,7 +13,6 @@ FitFlow helps users create personalized fitness routines using AI. It provides:
 - Personalized Indian diet plans  
 - AI chatbot (FitBuddy)  
 - BMI analysis  
-- Water intake recommendations  
 - Motivation quotes  
 - Web search–based fitness research  
 
@@ -44,7 +43,6 @@ Ask questions such as:
 ### **4. LangChain Tools Used**
 - `tavily_search` — research workouts & diets  
 - `analyze_bmi` — explains BMI  
-- `water_intake` — hydration suggestions  
 - `motivation_quote` — fitness quote  
 - `general_tool` — Gemini-based Q&A  
 
