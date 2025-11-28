@@ -301,10 +301,11 @@ if st.sidebar.button("Download Plans as PDF"):
     pdf.ln(5)
     pdf.multi_cell(0, 10, "Diet Plan:\n" + st.session_state.get("diet_plan", ""))
 
-    pdf_bytes = pdf.output(dest='S').encode('latin-1')  
+    pdf_bytes = pdf.output(dest='S').encode("latin-1" , "ignore")  
     st.sidebar.download_button(
         label="📄 Download Plans as PDF",
         data=pdf_bytes,
         file_name="plans.pdf",
         mime="application/pdf"
+
     )
